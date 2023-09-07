@@ -1,0 +1,58 @@
+body {
+    background-color: blueviolet;
+}
+.inputbox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+}
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 30px;
+}
+
+.button #btn-add, #btn-update, #btn-remove {
+    font-size: 24px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+#todo-input {
+    height: 25px;
+    font-size: 20px;
+    padding: 12px 24px;
+    margin-right: 16px;
+    outline: none;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+#todo-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    gap: 10px;
+}
+
+#todo-list li {
+    padding: 12px 24px;
+    background-color: aqua;
+    width: 50%;
+    font-size: 24px;
+    height: 40px;
+    border-radius: 10px;
+    margin-right: 16px;
+}
+
+#todo-list li > span {
+    background-color: #aaa;
+    cursor: pointer;
+    float: right;
+}
