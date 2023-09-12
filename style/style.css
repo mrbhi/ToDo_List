@@ -42,6 +42,9 @@ body {
 }
 
 #todo-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
     padding: 12px 24px;
     background-color: aqua;
     width: 50%;

@@ -66,8 +66,44 @@ removeBtn.addEventListener('click', function() {
     if (list.firstElementChild === null) {
         alert("there's no item to be deleted")
     } else {
-        firstElement = list.firstElementChild
-        list.removeChild(firstElement)
+        list.remove()
     }
     
 })
+
+function createTODODynamically(id, title) {
+    newListElement = document.createElement('li')
+    buttonDelete = document.createElement('span')
+    textNode = document.createTextNode(title)
+    newListElement.id = ('item' + id)
+    buttonDelete.innerHTML = "Delete"
+    newListElement.append(textNode, buttonDelete)
+
+    buttonDelete.addEventListener('click', function() {
+        item = this.parentNode
+        item.remove()
+    })
+
+    return newListElement
+}
+
+function getTODOListFromBackend() {
+    const http = new XMLHttpRequest()
+    http.onreadystatechange = function() {
+        if(this.readyState === 4 ){
+            if(this.status === 200) {
+                const response = JSON.parse(this.responseText)
+                for(i=0; i < response.length; i++) {
+                    list.appendChild(createTODODynamically(response[i].id, response[i].title))
+                }
+            } else {
+                console.log("Called Failed")
+            }
+            
+        }
+    }
+    http.open('GET', 'https://jsonplaceholder.typicode.com/todos', true)
+    http.send()
+}
+
+getTODOListFromBackend()
