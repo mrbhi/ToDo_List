@@ -44,11 +44,11 @@ function addListItem() {
 
 todoInput.addEventListener('keyup', function(e){
     if(e.keyCode === 13) {
-        addListItem()
+        createTODOItemAtBackend()
     }
 })
 
-addBtn.addEventListener("click", addListItem)
+addBtn.addEventListener("click", createTODOItemAtBackend)
 
 updateBtn.addEventListener("click", function() {
     firstElement = list.firstElementChild
@@ -107,3 +107,27 @@ function getTODOListFromBackend() {
 }
 
 getTODOListFromBackend()
+
+
+function createTODOItemAtBackend() {
+    const http = new XMLHttpRequest()
+    http.open('POST', 'https://jsonplaceholder.typicode.com/todos', true)
+    http.onreadystatechange = function(){
+        if(this.readyState === 4) {
+            if(this.status === 201) {
+                console.log(JSON.parse(this.responseText))
+                const response = JSON.parse(this.responseText)
+                list.appendChild(createTODODynamically(response.id, currentTodoInput))
+            } else {
+                console.log('Submission Failed')
+            }
+        }
+        
+    }
+    const obj = JSON.stringify({
+        "userId": 1,
+        "title": currentTodoInput,
+        "completed": false
+    })
+    http.send(obj)
+}
