@@ -1,8 +1,9 @@
-todoInput = document.getElementById('todo-input')
+$(function() {
+    todoInput = document.getElementById('todo-input')
 addBtn = document.getElementById('btn-add')
 updateBtn = document.getElementById('btn-update')
 removeBtn = document.getElementById('btn-remove')
-list = document.getElementById('todo-list')
+list = $('#todo-list')
 
 currentTodoInput = ''
 
@@ -31,7 +32,7 @@ function addListItem() {
 
         newListElement = createNewNode()
         
-        list.appendChild(newListElement)
+        list.append(newListElement)
     
         todoInput.value = ''
         currentTodoInput = ''
@@ -94,7 +95,7 @@ function getTODOListFromBackend() {
             if(this.status === 200) {
                 const response = JSON.parse(this.responseText)
                 for(i=0; i < response.length; i++) {
-                    list.appendChild(createTODODynamically(response[i].id, response[i].title))
+                    list.append(createTODODynamically(response[i].id, response[i].title))
                 }
             } else {
                 console.log("Called Failed")
@@ -115,9 +116,8 @@ function createTODOItemAtBackend() {
     http.onreadystatechange = function(){
         if(this.readyState === 4) {
             if(this.status === 201) {
-                console.log(JSON.parse(this.responseText))
                 const response = JSON.parse(this.responseText)
-                list.appendChild(createTODODynamically(response.id, currentTodoInput))
+                list.append(createTODODynamically(response.id, currentTodoInput))
             } else {
                 console.log('Submission Failed')
             }
@@ -131,3 +131,5 @@ function createTODOItemAtBackend() {
     })
     http.send(obj)
 }
+})
+
